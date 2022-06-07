@@ -123,8 +123,8 @@ int cTRemoveFirstNode(cT **node, char *value){
         if((*node)->left != NULL && (*node)->right != NULL){
             cT *leaf, *leafFather;
             cTFindSubstituteLeaf(*node, &leaf, &leafFather);
-            if((*node)->value < leaf->value && leaf->left != NULL)
-                    leafFather->right = leaf->left;
+            if((*node)->value < leaf->value)
+                leafFather->right = leaf->left;
             else if(leaf->right != NULL)
                 leafFather->left = leaf->right;
             leaf->right = (*node)->right;
