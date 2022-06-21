@@ -43,7 +43,7 @@ int queuePop(queue **node, queueDataType *returnValue){
 int queueRemove(queue **node){
     if(*node == NULL)
         return 1;
-    queue *newFirst = NULL
+    queue *newFirst = NULL;
     if((*node)->next != NULL){
         (*node)->next;
         newFirst->length = (*node)->length - 1;
