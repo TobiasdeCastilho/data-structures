@@ -43,10 +43,13 @@ int queuePop(queue **node, queueDataType *returnValue){
 int queueRemove(queue **node){
     if(*node == NULL)
         return 1;
-    queue *newFirst = (*node)->next;
-    newFirst->length = (*node)->length - 1;
-    newFirst->last = (*node)->last;
-    free(*node);
+    queue *newFirst = NULL
+    if((*node)->next != NULL){
+        (*node)->next;
+        newFirst->length = (*node)->length - 1;
+        newFirst->last = (*node)->last;
+        free(*node);
+    }
     *node = newFirst;
     return 0;
 }

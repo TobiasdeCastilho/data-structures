@@ -43,8 +43,11 @@ int stackPop(stack **node, stackDataType *returnValue){
 int stackRemove(stack **node){
     if(*node == NULL)
         return 1;
-    stack *newTop = (*node)->prior;
-    free(*node);
+    stack *newTop = NULL;
+    if((*node)->prior != NULL){
+        newTop = (*node)->prior;
+        free(*node);
+    }
     *node = newTop;
     return 0;
 }
