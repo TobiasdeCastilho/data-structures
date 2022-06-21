@@ -45,7 +45,7 @@ int queueRemove(queue **node){
         return 1;
     queue *newFirst = NULL;
     if((*node)->next != NULL){
-        (*node)->next;
+        newFirst = (*node)->next;
         newFirst->length = (*node)->length - 1;
         newFirst->last = (*node)->last;
         free(*node);
