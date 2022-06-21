@@ -12,16 +12,16 @@ typedef struct stackNode {
     struct stackNode *prior;
 } stack;
 
-int stackInitialize(stack **node);
+int stackInitialize(stack *node);
 int stackPeek(stack *node, stackDataType *returnValue);
 int stackPop(stack **node, stackDataType *returnValue);
 int stackRemove(stack **node);
 int stackPush(stack **node, stackDataType value);
 
-int stackInitialize(stack **node){
-    if(*node == NULL)
+int stackInitialize(stack *node){
+    if(node == NULL)
         return 0;
-    stackRemove(node);
+    stackRemove(&node);
     return stackInitialize(node);
 }
 

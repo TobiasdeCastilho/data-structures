@@ -12,16 +12,16 @@ typedef struct queueNode {
     struct queueNode *next, *last;
 } queue;
 
-int queueInitialize(queue **node);
+int queueInitialize(queue *node);
 int queuePeek(queue *node, queueDataType *returnValue);
 int queuePop(queue **node, queueDataType *returnValue);
 int queueRemove(queue **node);
 int queuePush(queue **node, queueDataType value);
 
-int queueInitialize(queue **node){
-    if(*node == NULL)
+int queueInitialize(queue *node){
+    if(node == NULL)
         return 0;
-    queueRemove(node);
+    queueRemove(&node);
     return queueInitialize(node);
 }
 
