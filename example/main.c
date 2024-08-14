@@ -3,6 +3,9 @@
 
 #include "../src/structure.h"
 
+int travel(tree_node *node);
+int compare(void *a, void *b);
+
 int main(int argc, char const *argv[]){
 	if(argc < 3){
 		printf("Usage: %s <type> <data>\n", argv[0]);
@@ -18,7 +21,10 @@ int main(int argc, char const *argv[]){
 		init(&controller, stack);		
 	else if(strcmp(type, "queue") == 0)
 		init(&controller, queue);
- 	else {
+	else if(strcmp(type, "tree") == 0){
+		init(&controller, binary_tree);
+		tree_set_rule(((tree_controller *) controller->_struct), &compare);
+	} else {
 		printf("Invalid type\n");
 		exit(INVALID_STRUCTURE_TYPE);		
 	}		
@@ -30,21 +36,42 @@ int main(int argc, char const *argv[]){
 		*data = atoi(argv[i]);
 		push(controller, data);
 	}		
-	
 	printf("Data pushed\n");
 	
-	void *x;
-	int sum = 0, i = 1;	
-	while(!pop(controller, &x)){
-		printf("Popped %d\n", *(int *)(x));	
-		if(i & 2 == 2)
-			sum += *(int *)(x);		
-		else
-			sum -= *(int *)(x);						
-		i++;
-		free(x);		
-	}
+
+	if(controller->type == binary_tree){
+		travel(((tree_controller *) controller->_struct)->root);
+		printf("\n");
+	} else {
+		void *x;
+		int sum = 0, i = 1;	
+		while(!pop(controller, &x)){		
+			if(i & 2 == 2)
+				sum += *(int *)(x);		
+			else
+				sum -= *(int *)(x);						
+			i++;
+			free(x);		
+		}
 	
-	printf("%d\n", sum);
+		printf("%d\n", sum);
+	}
 	return 0;
+}
+
+int travel(tree_node *node){
+	if(node == NULL)
+		return 0;
+
+	travel(node->left);
+	printf("%d ", *(int *)node->data);
+	travel(node->right);
+	return 0;
+}
+
+int compare(void *a, void *b){
+	int _a = *(int *)a;
+	int _b = *(int *)b;
+
+	return _a > _b ? 1 : -1;
 }
