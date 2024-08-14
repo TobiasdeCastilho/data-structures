@@ -15,10 +15,10 @@ int main(int argc, char const *argv[]){
 	const char *type = argv[1];
 	printf("Trying to start the %s structure\n", type);
 	if(strcmp(type, "stack") == 0)
-		init(&controller, stack);
+		init(&controller, stack);		
 	else if(strcmp(type, "queue") == 0)
 		init(&controller, queue);
-	else{
+ 	else {
 		printf("Invalid type\n");
 		exit(INVALID_STRUCTURE_TYPE);		
 	}		
@@ -30,33 +30,21 @@ int main(int argc, char const *argv[]){
 		*data = atoi(argv[i]);
 		push(controller, data);
 	}		
-	printf("%d data added\n", controller->length);
+	
+	printf("Data pushed\n");
 	
 	void *x;
 	int sum = 0, i = 1;	
 	while(!pop(controller, &x)){
+		printf("Popped %d\n", *(int *)(x));	
 		if(i & 2 == 2)
-			sum += *(int *)(x);			
+			sum += *(int *)(x);		
 		else
 			sum -= *(int *)(x);						
 		i++;
+		free(x);		
 	}
-				
+	
 	printf("%d\n", sum);
-	
-	return 0;
-}
-
-int shift(strucuture_controller *controller, void **data){
-	if(controller->length == 0)
-		return 1;
-	
-	structure_node *node = controller->first;
-	*data = node->data;
-	controller->first = node->next;
-	if(controller->first != NULL)
-		controller->first->prior = NULL;
-	free(node);
-	controller->length--;
 	return 0;
 }
